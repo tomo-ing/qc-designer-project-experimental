@@ -1,0 +1,579 @@
+/**
+ * 量子回路シミュレーターWebアプリケーション用CSSスタイルシート
+ * 
+ * このファイルは量子回路の可視化とインタラクションのための
+ * UI要素のスタイルを定義します。主要コンポーネント：
+ * - レスポンシブレイアウト
+ * - ドラッグ&ドロップインターフェース
+ * - 量子状態表示キャンバス
+ * - ツールバーとコントロール
+ * - リサイザブルパネル
+ */
+
+/* ===== ベースレイアウト ===== */
+
+/**
+ * ボディ要素のベースレイアウト設定
+ * 全画面を使用したフレックスレイアウトでアプリケーションを構築
+ */
+body {
+    margin: 0;                    /* デフォルトマージンをリセット */
+    display: flex;                /* フレックスレイアウトを使用 */
+    flex-direction: column;       /* 垂直方向に要素を配置 */
+    align-items: center;          /* 水平方向の中央揃え */
+    width: 100%;                  /* 全幅を使用 */
+    height: 100%;                 /* 全高を使用 */
+    background-color: #f0f0f0;    /* 薄いグレーの背景色 */
+    overflow: auto;               /* 必要に応じてスクロールバーを表示 */
+}
+
+/**
+ * メインコンテナ
+ * アプリケーション全体を包含する親要素
+ */
+#mainContainer {
+    position: relative;           /* 子要素の絶対配置の基準点 */
+    background-color: seashell;   /* シーシェル色の背景 */
+}
+
+/* ===== ヘッダー＆コンテナ要素 ===== */
+
+/**
+ * メインヘッダー
+ * アプリケーション上部の固定ヘッダーバー
+ */
+.mainHeader {
+    top: 0;                       /* 画面最上部に固定 */
+    width: 100%;                  /* 全幅を使用 */
+    height: 67px;                 /* 固定高さ */
+    position: absolute;           /* 絶対配置で固定 */
+    display: flex;                /* フレックスレイアウト */
+    flex-direction: row;          /* 水平方向に要素を配置 */
+    background-color: whitesmoke; /* ホワイトスモーク色の背景 */
+    border-bottom: 2px solid black; /* 下部に黒色のボーダー */
+    z-index: 10;                  /* 他要素より前面に表示 */
+}
+
+/**
+ * 汎用コンテナ
+ * 各パネル・ウィンドウの基本スタイル
+ */
+.container {
+    position: absolute;           /* 絶対配置 */
+    border: 2px solid black;      /* 黒色のボーダー */
+    display: flex;                /* フレックスレイアウト */
+    flex-direction: column;       /* 垂直方向に要素を配置 */
+    background-color: white;      /* 白色の背景 */
+}
+
+/**
+ * コンテナ内のヘッダー部分
+ * ドラッグ可能なタイトルバーとリセットボタンを含む
+ */
+.header {
+    height: 30px;                 /* 固定高さ */
+    background-color: #333;       /* ダークグレーの背景色 */
+    color: white;                 /* 白色のテキスト */
+    display: flex;                /* フレックスレイアウト */
+    align-items: center;          /* 垂直方向の中央揃え */
+    justify-content: space-between; /* 両端揃えで要素を配置 */
+    padding: 0 10px;              /* 左右に10pxのパディング */
+    box-sizing: border-box;       /* パディング込みでサイズ計算 */
+    cursor: move;                 /* ドラッグカーソルを表示 */
+}
+
+/* ===== ボタン要素 ===== */
+
+/**
+ * リセットボタン
+ * コンテナヘッダー内のリセット機能ボタン
+ */
+.reset-btn {
+    background-color: red;        /* 赤色の背景（警告色） */
+    color: white;                 /* 白色のテキスト */
+    border: none;                 /* ボーダーなし */
+    padding: 5px 10px;            /* 内側の余白 */
+    cursor: pointer;              /* ポインターカーソル */
+    border-radius: 3px;           /* 角を丸める */
+}
+
+/**
+ * リセットボタンのホバーエフェクト
+ * マウスオーバー時により濃い赤色に変化
+ */
+.reset-btn:hover {
+    background-color: darkred;    /* ダークレッドに変更 */
+}
+
+/* ===== ディスプレイコンテナ ===== */
+
+/**
+ * メインディスプレイコンテナ
+ * 量子回路や状態表示の主要領域
+ */
+.display-container {
+    display: flex;                /* フレックスレイアウト */
+    flex-direction: column;       /* 垂直方向に要素を配置 */
+    background-color: white;      /* 白色の背景 */
+    width: calc(100% - 10px);     /* 幅を100%から10px減算 */
+    height: calc(100% - 40px);    /* 高さを100%から40px減算 */
+}
+
+/**
+ * 行表示コンテナ
+ * 量子回路の行を水平方向に表示するためのコンテナ
+ */
+.row-display-container {
+    justify-content: flex-start;  /* 左端から要素を配置 */
+    position: relative;           /* 相対配置 */
+    display: flex;                /* フレックスレイアウト */
+    flex-direction: row;          /* 水平方向に配置 */
+    width: calc(100%-10px);       /* 幅を100%から10px減算 */
+    height: 100%;                 /* 全高を使用 */
+    overflow: hidden;             /* オーバーフローを隠す */
+}
+
+/**
+ * 仮想ディスプレイエリア
+ * 量子回路の描画やインタラクションを行う主要領域
+ */
+.display {
+    position: relative;           /* 子要素の絶対配置の基準点 */
+    overflow: auto;               /* 必要に応じてスクロールバー表示 */
+    background-color: white;      /* 白色の背景 */
+    padding: 10px;                /* 全方向に10pxのパディング */
+}
+
+/* ===== キャンバス要素 ===== */
+
+/**
+ * キャンバスラッパー
+ * 複数のキャンバスを管理するためのコンテナ
+ */
+.canvas-wrapper {
+    position: absolute;           /* 絶対配置 */
+    display: flex;                /* フレックスレイアウト */
+    flex-direction: column;       /* 垂直方向に配置 */
+}
+
+/**
+ * 基本キャンバススタイル
+ * デフォルトでは非表示、必要に応じて表示
+ */
+canvas {
+    position: relative;           /* 相対配置 */
+    display: none;                /* デフォルトで非表示 */
+}
+
+/**
+ * アクティブなキャンバス
+ * 現在選択されているキャンバスのみ表示
+ */
+canvas.active {
+    display: block;               /* アクティブなキャンバスを表示 */
+}
+
+/**
+ * 量子状態表示用キャンバス
+ * 量子ビットの状態やブロッホ球を描画
+ */
+.quan-canvas {
+    position: relative;           /* 相対配置 */
+    flex-direction: column;       /* 垂直方向に配置 */
+    display: flex;                /* フレックスレイアウト */
+}
+
+/* ===== ラベル＆テキスト要素 ===== */
+
+/**
+ * ラベル要素
+ * キャンバス上に表示される固定テキストラベル
+ */
+.label {
+    position: absolute;           /* 絶対配置 */
+    color: black;                 /* 黒色のテキスト */
+    font-family: Arial, sans-serif; /* Arialフォント使用 */
+    font-size: 18px;              /* 18pxのフォントサイズ */
+    pointer-events: none;         /* マウスイベントを無効化 */
+    z-index: 1;                   /* レイヤー順序を指定 */
+}
+
+/**
+ * 値表示要素
+ * 動的な数値や計算結果を表示するテキスト
+ */
+.values {
+    position: absolute;           /* 絶対配置 */
+    color: black;                 /* 黒色のテキスト */
+    font-family: Arial, sans-serif; /* Arialフォント使用 */
+    font-size: 18px;              /* 18pxのフォントサイズ */
+    pointer-events: none;         /* マウスイベントを無効化 */
+}
+
+/* ===== リサイザー要素 ===== */
+
+/**
+ * 下部ディバイダー（リサイザー）
+ * パネルの高さを調整するためのドラッグハンドル
+ */
+.divider-bottom {
+    flex-direction: column;       /* 垂直方向にレイアウト */
+    display: flex;                /* フレックスレイアウト */
+    position: absolute;           /* 絶対配置 */
+    box-sizing: border-box;       /* ボックスサイズ計算にボーダーを含む */
+    bottom: 0px;                  /* 下端に配置 */
+    width: 100%;                  /* 全幅を使用 */
+    height: 10px;                 /* 10pxの高さ */
+    background: gray;             /* グレーの背景色 */
+    cursor: ns-resize;            /* 南北リサイズカーソル */
+}
+
+/**
+ * 右側ディバイダー（リサイザー）
+ * パネルの幅を調整するためのドラッグハンドル
+ */
+.divider-right {
+    flex-direction: column;       /* 垂直方向にレイアウト */
+    display: flex;                /* フレックスレイアウト */
+    position: absolute;           /* 絶対配置 */
+    box-sizing: border-box;       /* ボックスサイズ計算にボーダーを含む */
+    top: 30px;                    /* 上から30px（ヘッダー分）の位置 */
+    right: 0px;                   /* 右端に配置 */
+    width: 10px;                  /* 10pxの幅 */
+    background: gray;             /* グレーの背景色 */
+    cursor: ew-resize;            /* 東西リサイズカーソル */
+}
+
+/* ===== メニューバー ===== */
+
+/**
+ * メニューバー
+ * コンテナ内のナビゲーション領域
+ */
+.menu-bar {
+    height: 40px;                 /* 40pxの固定高さ */
+    background-color: #444;       /* ダークグレーの背景色 */
+    color: white;                 /* 白色のテキスト */
+    display: flex;                /* フレックスレイアウト */
+    align-items: center;          /* 垂直方向の中央揃え */
+    justify-content: flex-start;  /* 左端から要素を配置 */
+    padding: 0 10px;              /* 左右に10pxのパディング */
+    box-sizing: border-box;       /* パディング込みでサイズ計算 */
+}
+
+/* ===== ツールバー要素 ===== */
+
+/**
+ * 上部ツールバー
+ * アプリケーション上部の水平ツールバー（スライダーコントロール等）
+ */
+.toolbar-top {
+    height: 30px;                 /* 30pxの固定高さ */
+    min-height: 30px;             /* 最小高さを30pxに制限 */
+    max-height: 30px;             /* 最大高さを30pxに制限 */
+    background-color: white;      /* 白色の背景 */
+    color: black;                 /* 黒色のテキスト（読みやすさ重視） */
+    display: flex;                /* フレックスレイアウト */
+    gap: 15px;                    /* 各要素間に15pxのスペース */
+    padding: 0 20px;              /* 左右に20pxのパディング */
+    box-sizing: border-box;       /* パディングとボーダーを含めたサイズ計算 */
+    border-bottom: 1px solid black; /* 下部に黒色のボーダー */
+    z-index: 2;                   /* レイヤー順序（前面表示） */
+    overflow-x: auto;             /* 水平オーバーフロー時にスクロール */
+}
+
+/**
+ * 左側ツールバー
+ * ドラッグ可能なアイテムを縦に配置するツールバー
+ */
+.toolbar-left {
+    position: relative;           /* 相対配置 */
+    top: 0;                       /* 上端に配置 */
+    left: 0;                      /* 左端に配置 */
+    width: 0;                     /* 幅は0（必要に応じて動的に調整） */
+    height: (100% - 9px);         /* 全高から9px減算 */
+    display: flex;                /* フレックスレイアウト */
+    flex-direction: column;       /* 垂直方向に要素を配置 */
+    align-items: center;          /* 水平方向の中央揃え */
+    justify-content: flex-start;  /* 上端から要素を配置 */
+    z-index: 2;                   /* レイヤー順序 */
+    overflow-y: auto;             /* 垂直オーバーフロー時にスクロール */
+}
+
+/**
+ * 右側ツールバー
+ * 追加コントロールやツールを配置するツールバー
+ */
+.toolbar-right {
+    position: relative;           /* 相対配置 */
+    top: 0;                       /* 上部ツールバー分を調整 */
+    right: 0;                     /* 右端に配置 */
+    height: calc(100% - 20px);    /* 全高から上部ツールバー分を差し引く */
+    display: flex;                /* フレックスレイアウト */
+    flex-direction: row;          /* 水平方向に配置 */
+    justify-content: flex-start;  /* 左端から要素を配置 */
+    background-color: greenyellow; /* グリーンイエローの背景色 */
+    gap: 10px;                    /* 各要素間に10pxのスペース */
+    padding: 10px;                /* 全方向に10pxのパディング */
+    border-left: 1px solid black; /* 左側に黒色のボーダー */
+    z-index: 2;                   /* レイヤー順序 */
+    overflow: hidden;             /* オーバーフローを隠す */
+}
+
+/* ===== セレクトボックス ===== */
+
+/**
+ * セレクトボックス（ドロップダウンメニュー）
+ * ユーザー選択用のドロップダウンコントロール
+ */
+select {
+    margin-left: 10px;            /* 左側に10pxのマージン */
+    padding: 5px;                 /* 全方向に5pxのパディング */
+    border-radius: 5px;           /* 5pxの角丸 */
+    background-color: #fff;       /* 白色の背景 */
+    border: 1px solid #ccc;       /* 薄いグレーのボーダー */
+    cursor: pointer;              /* ポインターカーソル */
+    transition: background-color 0.2s, color 0.2s; /* スムーズな色変化 */
+    z-index: 10;                  /* 高いレイヤー順序 */
+}
+
+/**
+ * セレクトボックスのホバーエフェクト
+ * マウスオーバー時に背景色を変更
+ */
+select:hover {
+    background-color: #ddd;       /* 薄いグレーに変更 */
+}
+
+/**
+ * セレクトボックスの選択肢（オプション）
+ * ドロップダウンメニュー内の各選択肢のスタイル
+ */
+option {
+    padding: 5px;                 /* 全方向に5pxのパディング */
+    background-color: #fff;       /* 白色の背景 */
+    color: #000;                  /* 黒色のテキスト */
+    transition: background-color 0.2s, color 0.2s; /* スムーズな色変化 */
+    z-index: 10;                  /* 高いレイヤー順序 */
+}
+
+/**
+ * オプションのホバーエフェクト
+ * マウスオーバー時にダークテーマに変更
+ */
+option:hover {
+    background-color: #555;       /* ダークグレーの背景 */
+    color: #fff;                  /* 白色のテキスト */
+}
+
+/* ===== ドラッグ&ドロップ要素 ===== */
+
+/**
+ * ドラッグ可能なアイテム
+ * ツールバーから回路にドラッグできるゲートアイテム
+ */
+.draggable-item {
+    position: absolute;           /* 絶対配置 */
+    width: 40px;                  /* 40pxの幅 */
+    height: 40px;                 /* 40pxの高さ */
+    cursor: grab;                 /* グラブカーソル（ドラッグ可能） */
+}
+
+/**
+ * ドラッグ中のアイテム
+ * ドラッグ操作中の視覚的フィードバック
+ */
+.dragging-item {
+    position: absolute;           /* 絶対配置 */
+    filter: brightness(50%);      /* 明度を50%に下げる（暗くする） */
+    cursor: grab;                 /* グラブカーソル */
+}
+
+/**
+ * グリッド上の画像要素
+ * 量子回路グリッド上に配置されたゲート画像
+ */
+.grid-image {
+    position: absolute;           /* 絶対配置 */
+    z-index: 3;                   /* レイヤー順序 */
+    cursor: grab;                 /* グラブカーソル（移動可能） */
+}
+
+/* ===== グリッドアイテム ===== */
+
+/**
+ * グリッドアイテム（タイプ2）
+ * ボーダーなしのテキスト中央揃えアイテム
+ */
+.item2 {
+    text-align: center;           /* テキストを中央揃え */
+    line-height: 40px;            /* 40pxの行高で垂直中央揃え */
+}
+
+/**
+ * 標準グリッドアイテム
+ * ボーダー付きのテキスト中央揃えアイテム
+ */
+.item {
+    border: 2px solid black;      /* 2pxの黒色ボーダー */
+    background-color: white;      /* 白色の背景 */
+    text-align: center;           /* テキストを中央揃え */
+    line-height: 40px;            /* 40pxの行高で垂直中央揃え */
+}
+
+/**
+ * 量子キャンバス
+ * 量子状態表示用の小型キャンバス要素
+ */
+.quantumCanvas {
+    border: 2px solid black;      /* 2pxの黒色ボーダー */
+    position: absolute;           /* 絶対配置 */
+    height: 50px;                 /* 50pxの高さ */
+    width: 50px;                  /* 50pxの幅 */
+}
+
+/* ===== ツールチップ&ポップアップ ===== */
+
+/**
+ * ツールチップ
+ * マウスオーバー時に表示される情報ポップアップ
+ */
+.tooltip {
+    position: absolute;           /* 絶対配置 */
+    background-color: rgb(182, 224, 243); /* 薄いブルーの背景色 */
+    color: rgb(0, 0, 0);          /* 黒色のテキスト */
+    padding: 5px;                 /* 全方向に5pxのパディング */
+    border-radius: 5px;           /* 5pxの角丸 */
+    border: 1px solid black;      /* 1pxの黒色ボーダー */
+    display: none;                /* デフォルトで非表示 */
+    white-space: pre-wrap;        /* 改行文字を保持 */
+    z-index: 4;                   /* 高いレイヤー順序 */
+}
+
+/**
+ * チャートクラス
+ * グラフや図表表示用のコンテナ
+ */
+.chart-class {
+    position: relative;           /* 相対配置 */
+}
+
+/* ===== スライダーコントロール ===== */
+
+/**
+ * スライダーコントロールコンテナ
+ * 量子状態パラメータ調整用のスライダー群
+ */
+.slider-controls {
+    position: absolute;           /* 絶対配置 */
+    display: flex;                /* フレックスレイアウト */
+    flex-direction: column;       /* 垂直方向に配置 */
+    gap: 15px;                    /* 各要素間に15pxのスペース */
+    margin: 15px 0;               /* 上下に15pxのマージン */
+    overflow: hidden;             /* オーバーフローを隠す */
+}
+
+/**
+ * スライダーラベル
+ * 各スライダーの説明テキスト
+ */
+.slider-controls label {
+    margin-right: 10px;           /* 右側に10pxのマージン */
+}
+
+/**
+ * レンジスライダー
+ * パラメータ値を連続的に調整するスライダー
+ */
+.slider-controls input[type="range"] {
+    width: 250px;                 /* 250pxの幅 */
+    margin-right: 10px;           /* 右側に10pxのマージン */
+}
+
+/**
+ * 数値入力フィールド
+ * スライダーと連動する直接数値入力ボックス
+ */
+.slider-controls input[type="number"] {
+    width: 60px;                  /* 60pxの幅 */
+}
+
+/**
+ * ポップアップスクリーン
+ * モーダルダイアログやポップアップウィンドウ
+ */
+.popupScreen {
+    position: absolute;           /* 絶対配置 */
+    background-color: whitesmoke; /* ホワイトスモーク色の背景 */
+    border: 1px solid #ccc;       /* 薄いグレーのボーダー */
+    border-radius: 8px;           /* 8pxの角丸 */
+    padding: 5px;                 /* 全方向に5pxのパディング */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* ドロップシャドウ */
+    width: 320px;                 /* 320pxの固定幅 */
+    text-align: center;           /* テキストを中央揃え */
+}
+
+/* ===== ナビゲーションメニュー ===== */
+
+/**
+ * ナビゲーションバー
+ * アプリケーションの主要ナビゲーションメニュー
+ */
+nav {
+    background-color: #333;       /* ダークグレーの背景色 */
+    display: flex;                /* フレックスレイアウト */
+    justify-content: space-around; /* 要素を均等に間隔配置 */
+    align-items: center;          /* 垂直方向の中央揃え */
+    padding: 10px 0;              /* 上下に10pxのパディング */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* ドロップシャドウ */
+    margin-left: 10px;            /* 左側に10pxのマージン */
+    margin-top: 10px;             /* 上側に10pxのマージン */
+    margin-bottom: 10px;          /* 下側に10pxのマージン */
+}
+
+/**
+ * ナビゲーションリンク（ボタン）
+ * ナビゲーションバー内のクリック可能なリンク要素
+ */
+nav a {
+    text-decoration: none;        /* 下線を削除 */
+    color: white;                 /* 白色のテキスト */
+    font-size: 16px;              /* 16pxのフォントサイズ */
+    padding: 10px 20px;           /* 内側に10px×20pxのパディング */
+    border-radius: 5px;           /* 5pxの角丸 */
+    transition: background-color 0.3s, color 0.3s; /* ホバー時のスムーズアニメーション */
+}
+
+/**
+ * ナビゲーションリンクのホバーエフェクト
+ * マウスオーバー時の視覚的フィードバック
+ */
+nav a:hover {
+    background-color: #555;       /* ホバー時の背景色（薄いグレー） */
+    color: #ffd700;               /* ホバー時のテキスト色（ゴールド） */
+}
+
+/**
+ * アクティブなナビゲーションリンク
+ * 現在選択されているページ・セクションの表示
+ */
+nav a.active {
+    background-color: #ffd700;    /* アクティブ時の背景色（ゴールド） */
+    color: #333;                  /* アクティブ時のテキスト色（ダークグレー） */
+    font-weight: bold;            /* テキストを太字に */
+}
+
+/* ===== 特殊ボタン ===== */
+
+/**
+ * ポップアップボタン
+ * モーダルダイアログを開くための特殊ボタン
+ */
+#popupButton {
+    z-index: 10;                  /* 高いレイヤー順序（前面表示） */
+    background: lightcoral;       /* ライトコーラル色の背景 */
+    border: none;                 /* ボーダーなし */
+    padding: 5px;                 /* 全方向に5pxのパディング */
+    cursor: pointer;              /* ポインターカーソル */
+    border-radius: 3px;           /* 3pxの角丸 */
+}

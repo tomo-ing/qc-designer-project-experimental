@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantum Circuit Generator</title>
+  <link rel="stylesheet" href="static/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+  <script src="static/js/index1/socket.io.min.js"></script>
+  <script src="static/cpp/qcal.js"></script>
+  <script type="module" src="static/js/index1/mainScript2.js"></script>
+</head>
+<body>
+  <div id="mainContainer">
+    <div id="mainHeader" class="mainHeader">
+      <nav>
+        <a href="/index6.html">Go To Quantum Circuit Design</a>
+      </nav>
+    </div>
+    <div id="container1" class="container">
+      <div class="header">
+        <span>Display 1</span>
+        <button class="reset-btn" data-container="container1">Reset</button>
+        <select id="canvasSelector1" class="canvas-selector" data-container="container2">
+            <option value="canvas1-1">Canvas 1</option>
+        </select>
+      </div>
+      <div class="display-container">
+        <div class="toolbar-top">
+        </div>
+        <div class="row-display-container">
+          <div class="toolbar-left"></div>
+          <div class="display">
+            <div class="canvas-wrapper">
+              <canvas id="canvas1-1"></canvas>
+            </div>
+          </div>
+          <div class="toolbar-right"></div>
+        </div>
+      </div>
+      <div class="divider-right" style="height: calc(100% - 30px);"></div>
+      <div class="divider-bottom"></div>
+    </div>
+
+    <div id="container2" class="container">
+      <div class="header">
+        <span>Display 2</span>
+        <button class="reset-btn" data-container="container2">Reset</button>
+        <select id="canvasSelector2" class="canvas-selector" data-container="container2">
+          <option value="canvas1-2">初期状態</option>
+          <option value="canvas2-2">目標状態</option>
+          <option value="canvas3-2">結果</option>
+        </select>
+      </div>
+      <div class="display-container">
+        <div class="toolbar-top"></div>
+        <div class="row-display-container">
+          <div class="display">
+            <div class="top-controls" id="top-controls-2"></div>
+            <div class="canvas-wrapper">
+              <canvas id="canvas1-2"></canvas>
+              <canvas id="canvas2-2"></canvas>
+              <canvas id="canvas3-2"></canvas>
+            </div>
+            <div class="slider-controls" id="slider-controls-2"></div>
+            <div class="bottom-controls" id="bottom-controls-2"></div>
+          </div>
+        </div>
+      </div>
+      <div class="divider-right" style="height: calc(100% - 30px);"></div>
+      <div class="divider-bottom"></div>
+    </div>
+
+    <div id="container3" class="container">
+      <div class="header">
+        <span>Display 3</span>
+        <button class="reset-btn" data-container="container3">Reset</button>
+        <select id="canvasSelector3" class="canvas-selector" data-container="container2">
+          <option value="canvas1-3">初期状態</option>
+          <option value="canvas2-3" selected>目標状態</option>
+          <option value="canvas3-3">結果</option>
+        </select>
+      </div>
+      <div class="display-container">
+        <div class="toolbar-top"></div>
+        <div class="row-display-container">
+          <div class="display">
+            <div class="top-controls" id="top-controls-3"></div>
+            <div class="canvas-wrapper">
+              <canvas id="canvas1-3"></canvas>
+              <canvas id="canvas2-3"></canvas>
+              <canvas id="canvas3-3"></canvas>
+            </div>
+            <div class="slider-controls" id="slider-controls-3"></div>
+            <div class="bottom-controls" id="bottom-controls-3"></div>
+          </div>
+        </div>
+      </div>
+      <div class="divider-right" style="height: calc(100% - 30px);"></div>
+      <div class="divider-bottom"></div>
+    </div>
+  </div>
+</body>
+</html>

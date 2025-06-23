@@ -1,0 +1,22 @@
+# 量子回路シミュレーター - Python依存関係
+# Quantum Circuit Simulator - Python Dependencies
+
+# Webアプリケーションフレームワーク
+Flask>=2.0.0
+flask-socketio>=5.0.0
+
+# 数値計算ライブラリ（量子状態ベクトル・行列演算）
+numpy>=1.21.0
+
+# WebSocket通信
+python-socketio>=5.0.0
+eventlet>=0.33.0
+
+# HTTP通信・API処理
+requests>=2.25.0
+
+# 数学演算ライブラリ
+scipy>=1.7.0
+
+# WebAssembly関連（開発時のみ）
+# emscripten (external tool, not pip package)
