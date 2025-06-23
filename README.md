@@ -143,22 +143,32 @@ python mainQuantum.py
 ## 使用方法
 
 ### 基本操作
+#### 回路設計側
 
 1. **量子ゲートの配置**
    - 左側のツールバーからゲートをドラッグ
    - 量子回路グリッドにドロップして配置
 
 2. **回路の実行**
-   - 「実行」ボタンをクリック
+   - 「calculate」ボタンをクリック
    - アニメーション付きで段階的に実行
 
 3. **量子状態の確認**
    - ブロッホ球パネルで各量子ビットの状態を表示
    - 確率分布グラフで結果を確認
 
-4. **パラメータの調整**
+#### 回路生成側
+1. **パラメータの調整**
    - スライダーで初期状態、目標状態を調整
    - リアルタイムで量子状態が更新
+
+2. **生成計算の実行**
+   - 「calculate」ボタンをクリック
+   - 進捗バーで進捗状況を確認
+
+3. **結果の確認**
+   - 進捗バーが100%になったら回路結果が表示
+   - ブロッホ球で結果確認
 
 ## ファイル構造
 
@@ -175,8 +185,8 @@ qc-designer-project-experimental/
 │   ├── css/
 │   │   └── style.css            # UIスタイルシート
 │   ├── js/index1/
-│   │   ├── mainScript1.js       # メインJavaScriptロジック
-│   │   ├── mainScript2.js       # UI制御・イベント処理
+│   │   ├── mainScript1.js       # 回路設計側メインJavaScriptロジック
+│   │   ├── mainScript2.js       # 回路生成側メインJavaScriptロジック
 │   │   ├── quantum.js           # 量子状態管理
 │   │   ├── canvas1.js           # 回路描画キャンバス
 │   │   ├── canvas2.js           # グリッド管理
@@ -189,7 +199,7 @@ qc-designer-project-experimental/
 │   │   ├── editGate.js          # ゲート編集
 │   │   ├── funcqcal.js          # WebAssembly量子計算
 │   │   ├── slider.js            # スライダーコントロール
-│   │   ├── stateData2.js        # 量子状態データ管理
+│   │   ├── stateData2.js        # データ管理
 │   │   ├── toolbar.js           # ツールバー機能
 │   │   ├── toolbartop.js        # 上部ツールバー
 │   │   └── worker.js            # Webワーカー
@@ -215,7 +225,7 @@ qc-designer-project-experimental/
 
 - **WebAssembly使用**: C++による高速計算
 - **ビット操作最適化**: 効率的な量子状態インデックス計算
-- **メモリプール**: 動的メモリ割り当てを最小化
+- **共有メモリ**: データコピー回数の最小化
 
 ## ⚠️ 重要な注意事項
 
@@ -240,15 +250,6 @@ qc-designer-project-experimental/
 
 このプロジェクトは [MIT License](LICENSE) の下で公開されています。
 
-## 連絡先
-
-- 開発者: [Your Name]
-- Email: your.email@example.com
-- GitHub: [@your-username](https://github.com/your-username)
-- プロジェクトURL: https://github.com/your-username/qc-designer-project-experimental
-
 ---
 
 ⚠️ **注意**: このプロジェクトは実験的段階です。現時点では公開していません。
-
-📚 より詳しいドキュメントは [Wiki](https://github.com/your-username/qc-designer-project-experimental/wiki) をご覧ください。
