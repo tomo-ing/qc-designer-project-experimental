@@ -76,16 +76,12 @@
 ### 必要要件
 
 - **Python 3.8以上**: バックエンドサーバー実行
-- **Node.js 14以上**: 開発時のみ（JSライブラリ管理）
 - **Emscripten SDK**: C++からWebAssemblyへのコンパイル時のみ
-  - Git、Python、CMakeが事前に必要
-  - 初回セットアップ時間: 約10-15分
-  - ディスク容量: 約2GB
 
 ### 1. リポジトリのクローン
 
 ```bash
-git clone https://github.com/your-username/qc-designer-project-experimental.git
+git clone https://github.com/tomo-ing/qc-designer-project-experimental.git
 cd qc-designer-project-experimental
 ```
 
