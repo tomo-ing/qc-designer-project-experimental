@@ -185,8 +185,8 @@ qc-designer-project-experimental/
 │   │   ├── mainScript2.js       # 回路生成側メインJavaScriptロジック
 │   │   ├── quantum.js           # 量子状態管理
 │   │   ├── canvas1.js           # 回路描画キャンバス
-│   │   ├── canvas2.js           # グリッド管理
-│   │   ├── canvas3.js           # ブロッホ球描画
+│   │   ├── canvas2.js           # ブロッホ球描画
+│   │   ├── canvas3.js           # 状態ベクトルグラフ描画
 │   │   ├── blochdrow.js         # 3Dブロッホ球レンダリング
 │   │   ├── createElement.js     # UI要素生成
 │   │   ├── dataSend.js          # サーバー通信
