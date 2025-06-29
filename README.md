@@ -186,7 +186,7 @@ qc-designer-project-experimental/
 │   │   ├── quantum.js           # 量子状態管理
 │   │   ├── canvas1.js           # 回路描画キャンバス
 │   │   ├── canvas2.js           # ブロッホ球描画
-│   │   ├── canvas3.js           # 状態ベクトルグラフ描画
+│   │   ├── canvas3.js           # 確率振幅グラフ描画
 │   │   ├── blochdrow.js         # 3Dブロッホ球レンダリング
 │   │   ├── createElement.js     # UI要素生成
 │   │   ├── dataSend.js          # サーバー通信
@@ -215,7 +215,7 @@ qc-designer-project-experimental/
 
 | 量子ビット数 | 量子ゲート数 | 計算時間 (WebAssembly) | 計算時間 (JavaScript) | 高速化率 |
 |-------------|-------------|-----------------------|----------------------|---------|
-| 21 qubits   | 21 gats     |  220ms                | 410ms                | 1.9x    |
+| 21 qubits   | 21 gates     |  220ms                | 410ms                | 1.9x    |
 
 ### 最適化のポイント
 
